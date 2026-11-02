@@ -1,5 +1,5 @@
 {
-  "source": "用户提供的参考应用；详见 Resources/Licenses/NOTICE.txt",
+  "source": "浮引截图.app/Contents/MacOS/浮引截图",
   "sourceSHA256": "f35435107b34bac9f240f7412d816ed1d56e537a29621f77967c8ec36ef81681",
   "mappingMethod": "Visual shape identification of REA-extracted paths; runtime enum-to-path mapping remains unconfirmed.",
   "glyphs": {

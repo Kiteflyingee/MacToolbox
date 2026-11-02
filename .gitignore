@@ -5,3 +5,4 @@
 /artifacts/
 **/xcuserdata/
 *.xcuserstate
+/tools/signing.local.env

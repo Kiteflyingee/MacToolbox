@@ -20,6 +20,10 @@ final class SelectionObserver {
     private var reads = 0
     private var delivered = 0
     private var lastRead = "idle"
+    private var lastSourceBundleID = "none"
+    #if DEBUG
+    var probeSourceBundleIDs: Set<String>?
+    #endif
     var isEnabled = true
     private(set) var permissionGranted = AXIsProcessTrusted()
     private(set) var permissionReport = AccessibilityReport(trustedFlag: false, apiResult: -25211)
@@ -28,7 +32,8 @@ final class SelectionObserver {
     var onPermissionChange: (() -> Void)?
     var diagnostics: [String: Any] {
         ["enabled": isEnabled, "monitorInstalled": monitor != nil, "mouseDowns": mouseDowns,
-         "mouseUps": mouseUps, "selectionReads": reads, "delivered": delivered, "lastRead": lastRead]
+         "mouseUps": mouseUps, "selectionReads": reads, "delivered": delivered, "lastRead": lastRead,
+         "lastSourceBundleID": lastSourceBundleID]
     }
 
     func start() {
@@ -80,14 +85,16 @@ final class SelectionObserver {
         guard monitor == nil else { return }
         monitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .leftMouseUp]) { [weak self] event in
             let isDown = event.type == .leftMouseDown, clicks = event.clickCount
+            let eventPoint = event.cgEvent?.location
             MainActor.assumeIsolated {
                 guard let self else { return }
+                let top = NSScreen.screens.first?.frame.maxY ?? 0
+                let point = eventPoint.map { CGPoint(x: $0.x,y: top-$0.y) } ?? NSEvent.mouseLocation
                 if isDown {
                     self.mouseDowns += 1
-                    self.task?.cancel(); self.generation = UUID(); self.downPoint = NSEvent.mouseLocation
+                    self.task?.cancel(); self.generation = UUID(); self.downPoint = point
                 } else {
                     self.mouseUps += 1
-                    let point = NSEvent.mouseLocation
                     let distance = self.downPoint.map { hypot(point.x-$0.x, point.y-$0.y) } ?? 0
                     guard distance >= 3 || clicks >= 2 else { return }
                     self.read(at: point)
@@ -111,21 +118,36 @@ final class SelectionObserver {
     }
 
     private func read(at anchor: NSPoint) {
-        guard isEnabled, permissionGranted, allowsSelection?() == true,
-              let pid = NSWorkspace.shared.frontmostApplication?.processIdentifier,
-              pid != ProcessInfo.processInfo.processIdentifier else { return }
+        guard isEnabled else { lastRead = "disabled"; return }
+        guard permissionGranted else { lastRead = "permission-unavailable"; return }
+        guard allowsSelection?() == true else { lastRead = "own-interaction"; return }
+        guard let source = NSWorkspace.shared.frontmostApplication,
+              source.processIdentifier != ProcessInfo.processInfo.processIdentifier else { lastRead = "source-changed"; return }
+        lastSourceBundleID = source.bundleIdentifier ?? "unknown"
+        #if DEBUG
+        if let allowed = probeSourceBundleIDs,!allowed.contains(source.bundleIdentifier ?? "") { lastRead = "probe-app-excluded"; return }
+        #endif
+        let pid = source.processIdentifier
         let id = generation
+        let top = NSScreen.screens.first?.frame.maxY ?? 0
+        let hitPoint = CGPoint(x: anchor.x,y: top-anchor.y)
         task = Task { @MainActor [weak self] in
-            try? await Task.sleep(for: .milliseconds(140))
-            guard let self, !Task.isCancelled, self.generation == id else { return }
-            self.reads += 1
-            let outcome = await self.reader.readSelection(processID: pid)
-            guard !Task.isCancelled, self.generation == id, self.allowsSelection?() == true,
-                  NSWorkspace.shared.frontmostApplication?.processIdentifier == pid else { return }
-            self.lastRead = outcome.status
-            guard let text = outcome.text else { return }
-            self.delivered += 1
-            self.onSelection?(text, anchor, pid)
+            for delay in [140,180] {
+                try? await Task.sleep(for: .milliseconds(delay))
+                guard let self,!Task.isCancelled,self.generation == id,self.allowsSelection?() == true,
+                      NSWorkspace.shared.frontmostApplication?.processIdentifier == pid else { return }
+                self.reads += 1
+                let outcome = await self.reader.readSelection(processID: pid,at: hitPoint)
+                guard !Task.isCancelled,self.generation == id,self.allowsSelection?() == true,
+                      NSWorkspace.shared.frontmostApplication?.processIdentifier == pid else { return }
+                self.lastRead = outcome.status
+                if let text = outcome.text {
+                    self.delivered += 1
+                    self.onSelection?(text,anchor,pid)
+                    return
+                }
+                if outcome.status == "secure-field" { return }
+            }
         }
     }
 }

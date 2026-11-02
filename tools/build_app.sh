@@ -2,6 +2,7 @@
 set -eu
 task_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 cd "$task_root"
+if [ -f "$task_root/tools/signing.local.env" ]; then . "$task_root/tools/signing.local.env"; fi
 task_identity="${MACTOOLBOX_SIGNING_IDENTITY:-}"
 task_team="${MACTOOLBOX_TEAM_ID:-}"
 if [ -n "$task_identity" ]; then
@@ -66,8 +67,9 @@ cat > "$app/Contents/Info.plist" <<'PLIST'
 <key>CFBundleIconFile</key><string>AppIcon</string>
 <key>CFBundlePackageType</key><string>APPL</string>
 <key>NSPrincipalClass</key><string>NSApplication</string>
-<key>CFBundleShortVersionString</key><string>0.2.8</string>
-<key>CFBundleVersion</key><string>19</string>
+<key>CFBundleShortVersionString</key><string>0.2.12</string>
+<key>CFBundleVersion</key><string>23</string>
+<key>NSHumanReadableCopyright</key><string>© 富途网络科技（盐城）有限公司</string>
 <key>LSMinimumSystemVersion</key><string>14.0</string>
 <key>LSUIElement</key><true/>
 <key>NSHighResolutionCapable</key><true/>
@@ -78,7 +80,7 @@ xattr -cr "$app"
 if [ -n "$task_identity" ]; then
   codesign --force --sign "$task_identity" --options runtime --timestamp --identifier local.devkite.MacToolbox "$app"
   task_requirement="identifier \"local.devkite.MacToolbox\" and anchor apple generic and certificate leaf[subject.OU] = \"$task_team\" and certificate leaf[field.1.2.840.113635.100.6.1.13] exists"
-  codesign --verify --strict -R "$task_requirement" "$app"
+  codesign --verify --strict -R "=$task_requirement" "$app"
 elif [ "${MACTOOLBOX_ADHOC_SIGN:-0}" = 1 ]; then
   task_identity=-
   codesign --force --sign "$task_identity" --identifier local.devkite.MacToolbox "$app"

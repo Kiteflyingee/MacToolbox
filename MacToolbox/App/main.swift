@@ -37,7 +37,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 }
                 #endif
                 let args = CommandLine.arguments
-                let isFixture = args.contains("--capture-fixture") || args.contains("--translation-fixture") || args.contains("--color-fixture")
+                #if DEBUG
+                if args.contains("--selection-probe") {
+                    coordinator.finderCut.setEnabled(false)
+                    coordinator.broker.disable()
+                    coordinator.selection.probeSourceBundleIDs = ["com.kingsoft.wpsoffice.mac","com.google.Chrome"]
+                }
+                #endif
+                let isFixture = args.contains("--capture-fixture") || args.contains("--translation-fixture") || args.contains("--color-fixture") || args.contains("--selection-probe")
                 if reopenRequested || args.contains("--show-settings") || (!isFixture && !args.contains("--background") && !args.contains("--show-history")) {
                     coordinator.showSettings()
                 }
@@ -83,6 +90,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             "AXTrustedFlag": coordinator.selection.permissionReport.trustedFlag,
             "AXAPIResult": coordinator.selection.permissionReport.apiResult,
             "selection": coordinator.selection.diagnostics,
+            "translation": coordinator.translation.diagnostics,
             "frontmostBundleID": NSWorkspace.shared.frontmostApplication?.bundleIdentifier ?? "none",
             "ownInteraction": coordinator.ownInteraction,
             "finder": coordinator.finderCut.diagnostics,

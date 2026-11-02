@@ -29,7 +29,15 @@ final class TranslationController: NSObject, NSWindowDelegate {
     private var fixtureIsPinned = false
     private var fixtureExportDirectory: URL?
     private var targetChangeID = UUID()
+    private var shownButtons = 0
+    private var lastCloseReason = "none"
     var isInteracting: Bool { panel.isVisible && (panel.isKeyWindow || NSMouseInRect(NSEvent.mouseLocation, panel.frame, false)) }
+    var diagnostics: [String: Any] {
+        let isButton: Bool
+        if case .button = state.phase { isButton = true } else { isButton = false }
+        return ["panelVisible": panel.isVisible,"isButton": isButton,"shownButtons": shownButtons,
+                "lastCloseReason": lastCloseReason,"sourcePID": sourcePID ?? 0]
+    }
 
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
@@ -46,12 +54,12 @@ final class TranslationController: NSObject, NSWindowDelegate {
             let timestamp = event.timestamp
             Task { @MainActor in
                 guard let self, !self.fixtureIsPinned, let presented = self.flowPresentedAt, timestamp >= presented else { return }
-                self.close()
+                self.close(reason: "outside-click")
             }
         }) { monitors.append(monitor) }
         if let monitor = NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown], handler: { [weak self] event in
             MainActor.assumeIsolated {
-                if let self, !self.fixtureIsPinned, event.window !== self.panel { self.close() }
+                if let self, !self.fixtureIsPinned, event.window !== self.panel { self.close(reason: "own-window-click") }
             }
             return event
         }) { monitors.append(monitor) }
@@ -59,7 +67,7 @@ final class TranslationController: NSObject, NSWindowDelegate {
             let pid = (notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication)?.processIdentifier
             Task { @MainActor in
                 guard let self, !self.fixtureIsPinned, let pid, pid != ProcessInfo.processInfo.processIdentifier, pid != self.sourcePID else { return }
-                self.close()
+                self.close(reason: "front-app-changed")
             }
         }
     }
@@ -86,11 +94,13 @@ final class TranslationController: NSObject, NSWindowDelegate {
     }
 
     private func presentButton(_ snapshot: TranslationSnapshot, pid: pid_t?) {
+        shownButtons += 1
         flowPresentedAt = ProcessInfo.processInfo.systemUptime; sourcePID = pid
         expiry?.cancel()
         expiry = Task { @MainActor [weak self] in
             try? await Task.sleep(for: .seconds(8))
             guard !Task.isCancelled, let self else { return }
+            if case .button(let current) = self.state.phase,current.id == snapshot.id { self.lastCloseReason = "expired" }
             self.state.expireButton(snapshotID: snapshot.id); self.render()
         }
     }
@@ -125,7 +135,8 @@ final class TranslationController: NSObject, NSWindowDelegate {
         }
     }
 
-    func close() {
+    func close(reason: String = "explicit") {
+        lastCloseReason = reason
         targetChangeID = UUID()
         state.close(); network?.cancel(); network = nil; expiry?.cancel(); expiry = nil
         extraction?.cancel(); extraction = nil; screenshotPNG = nil

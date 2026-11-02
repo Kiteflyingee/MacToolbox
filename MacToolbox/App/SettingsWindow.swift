@@ -54,8 +54,14 @@ final class SettingsWindow: NSWindowController, NSTextFieldDelegate, NSWindowDel
         cutSound.target = self; cutSound.action = #selector(cutSoundChanged)
         cutSound.toolTip = "Finder 文件剪切准备成功后播放一次提示音。"
         let previewSound = ActionButton("试听") { [weak coordinator] in coordinator?.finderCut.previewCutSound() }
+        let website = ActionButton("www.fortumap.com") {
+            if let url = URL(string: "https://www.fortumap.com") { NSWorkspace.shared.open(url) }
+        }
+        let copyright = Bundle.main.object(forInfoDictionaryKey: "NSHumanReadableCopyright") as? String
+            ?? "© 富途网络科技（盐城）有限公司"
         let root = stack([label("翻译服务", size: 19),
             stack([label("原文自动识别 · 默认译为"), translationTarget], horizontal: true),
+            label("WPS 等划词不响应的场景，可复制文字后翻译，或使用截图翻译。",size: 11,secondary: true),
             label("Chat Completions 兼容 API 地址"), endpoint,
             label("模型"), model, label("API Key · 存入系统钥匙串"), key, stack([reuse,authorize],horizontal: true),
             stack([save, test], horizontal: true), resultLabel,
@@ -63,7 +69,8 @@ final class SettingsWindow: NSWindowController, NSTextFieldDelegate, NSWindowDel
             NSBox.separator(), label("权限", size: 19),
             stack([accessibilityLabel, accessibilityButton], horizontal: true),
             stack([screenLabel, screenButton], horizontal: true),
-            label("在系统设置中开启 MacToolbox。开启后如仍未就绪，请退出并重新打开应用。",size: 11,secondary: true)], spacing: 9)
+            label("在系统设置中开启 MacToolbox。开启后如仍未就绪，请退出并重新打开应用。",size: 11,secondary: true),
+            NSBox.separator(), stack([label(copyright, size: 11, secondary: true), website], horizontal: true)], spacing: 9)
         root.edgeInsets = NSEdgeInsets(top: 22, left: 28, bottom: 22, right: 28)
         window.contentView = root
         window.setContentSize(NSSize(width: max(560, root.fittingSize.width), height: max(480, root.fittingSize.height)))

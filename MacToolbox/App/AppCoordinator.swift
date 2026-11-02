@@ -174,7 +174,7 @@ final class AppCoordinator: NSObject, NSMenuDelegate {
             if row.action == #selector(toggleSelection) {
                 row.title = selection.isEnabled ? "划词翻译：已开启" : "划词翻译：已关闭"
                 row.state = selection.isEnabled ? .on : .off
-                row.toolTip = selection.permissionGranted ? "鼠标划选文字后显示翻译按钮。" : "请在偏好设置中允许辅助功能。"
+                row.toolTip = selection.permissionGranted ? "鼠标划选文字后显示翻译按钮；WPS 等场景可复制文字后翻译，或使用截图翻译。" : "请在偏好设置中允许辅助功能。"
             }
             if row.action == #selector(toggleMonitoring) {
                 row.title = broker.isEnabled ? "剪贴板历史：已开启" : "剪贴板历史：已关闭"

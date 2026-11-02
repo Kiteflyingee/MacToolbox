@@ -14,17 +14,19 @@ mkdir -p "$task_image/contents"
 cp "$package" "$task_image/contents/安装或更新 MacToolbox.pkg"
 cat > "$task_image/contents/安装说明.txt" <<TEXT
 MacToolbox $version
+© 富途网络科技（盐城）有限公司
+官网：www.fortumap.com
 
 1. 先退出正在运行的 MacToolbox。
 2. 双击“安装或更新 MacToolbox.pkg”，按安装器提示完成安装。
-3. 在 Finder 按 ⌘⇧G，输入 ~/Applications/MacToolbox.app 打开应用。
+3. 在“应用程序”中打开 MacToolbox.app，或在 Finder 按 ⌘⇧G 输入 /Applications/MacToolbox.app。
 4. 使用顶部菜单栏的叠卡星光图标进入截图、剪贴板记录和偏好设置。
 
-安装器沿用现有的当前用户应用目录，保留偏好、剪贴板历史与 API 配置。
+应用统一安装到 /Applications。原有偏好、剪贴板历史与 API 配置保留在各用户自己的目录。
 最低 macOS 14，包含苹果芯片 arm64 与 Intel x86_64 两种架构。
 
-这是本地开发测试版，尚未经过 Apple Developer ID 分发签名及公证。
-DMG 不会自动授予或改变系统权限；当前版本 API Key 的跨更新钥匙串授权问题仍待解决。
+DMG 不会自动授予或改变系统权限。首次安装或签名身份迁移时，请按系统提示确认。
+安装器签名可通过系统安装器或 pkgutil --check-signature 检查；Apple 公证状态请参阅本次发行说明。
 TEXT
 output="$task_root/build/MacToolbox-$version-universal.dmg"
 hdiutil create -srcfolder "$task_image/contents" -volname "MacToolbox $version" \
