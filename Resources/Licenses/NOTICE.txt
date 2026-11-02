@@ -1,0 +1,14 @@
+MacToolbox toolbar vector icons
+
+The icon paths were identified in the user's supplied reference application via
+REA and use the MingCute and Phosphor icon families. Only selected functional
+toolbar glyphs are included; no reference executable code is incorporated.
+
+MingCute: https://github.com/mingcute-design/mingcute-icons
+Apache License 2.0; see MingCute-Apache-2.0.txt.
+
+Phosphor Icons: https://github.com/phosphor-icons/core
+Copyright (c) 2023 Phosphor Icons. MIT; see Phosphor-MIT.txt.
+
+The native path decoder and the MacToolbox status-bar mark are implemented in
+this project. The status-bar mark is derived from the user's MacToolbox artwork.
