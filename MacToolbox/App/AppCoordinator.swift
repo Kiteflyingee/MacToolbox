@@ -16,6 +16,10 @@ final class AppCoordinator: NSObject, NSMenuDelegate {
     private var item: NSStatusItem?
     private var settingsWindow: SettingsWindow?
     private let preferences: UserDefaults
+    lazy var captureShortcut = CaptureShortcutController(preferences: preferences) { [weak self] in
+        guard let self, !self.captureIsActive else { return }
+        self.captureAction?()
+    }
     var translationTarget: TargetLanguage {
         get { preferences.string(forKey: "translationTarget").flatMap(TargetLanguage.init(rawValue:)) ?? .automatic }
         set { preferences.set(newValue.rawValue, forKey: "translationTarget") }
@@ -84,6 +88,7 @@ final class AppCoordinator: NSObject, NSMenuDelegate {
         broker.onBeforeOwnWrite = { [weak self] in self?.finderCut.invalidate() }
         finderCut.setEnabled(preferences.object(forKey: "finderCutEnabled") as? Bool ?? true)
         captureAction = { [weak self] in self?.colorPicker.close(restoreFocus: false); self?.captureController.begin() }
+        _ = captureShortcut
         do {
             if let digest = try await settings.validateStartupAndCollectUnusedKeys() { try await broker.registerSensitive(digest) }
             startupSecretsReady = true

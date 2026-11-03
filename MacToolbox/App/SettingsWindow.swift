@@ -1,5 +1,6 @@
 import AppKit
 import MacToolboxCore
+import ServiceManagement
 
 @MainActor
 final class SettingsWindow: NSWindowController, NSTextFieldDelegate, NSWindowDelegate {
@@ -19,6 +20,10 @@ final class SettingsWindow: NSWindowController, NSTextFieldDelegate, NSWindowDel
     private var confirmedOrigin: ServiceOrigin?
     private let translationTarget = NSPopUpButton(frame: .zero, pullsDown: false)
     private let cutSound = NSButton(checkboxWithTitle: "Command X 剪切音效", target: nil, action: nil)
+    private let launchAtLogin = NSButton(checkboxWithTitle: "开机自启动", target: nil, action: nil)
+    private let loginItemLabel = label("", size: 11, secondary: true)
+    private var captureShortcut: CaptureShortcutRecorder!
+    private let shortcutLabel = label("", size: 11, secondary: true)
 
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
@@ -54,6 +59,12 @@ final class SettingsWindow: NSWindowController, NSTextFieldDelegate, NSWindowDel
         cutSound.target = self; cutSound.action = #selector(cutSoundChanged)
         cutSound.toolTip = "Finder 文件剪切准备成功后播放一次提示音。"
         let previewSound = ActionButton("试听") { [weak coordinator] in coordinator?.finderCut.previewCutSound() }
+        launchAtLogin.target = self; launchAtLogin.action = #selector(launchAtLoginChanged)
+        launchAtLogin.toolTip = "登录 Mac 时自动启动，保持在菜单栏运行。"
+        let loginItems = ActionButton("登录项设置…") { SMAppService.openSystemSettingsLoginItems() }
+        captureShortcut = CaptureShortcutRecorder(controller: coordinator.captureShortcut)
+        captureShortcut.onStatusChange = { [weak self] message in self?.shortcutLabel.stringValue = message }
+        let clearShortcut = ActionButton("清除") { [weak self] in self?.captureShortcut.clearShortcut() }
         let website = ActionButton("www.fortumap.com") {
             if let url = URL(string: "https://www.fortumap.com") { NSWorkspace.shared.open(url) }
         }
@@ -65,7 +76,10 @@ final class SettingsWindow: NSWindowController, NSTextFieldDelegate, NSWindowDel
             label("Chat Completions 兼容 API 地址"), endpoint,
             label("模型"), model, label("API Key · 存入系统钥匙串"), key, stack([reuse,authorize],horizontal: true),
             stack([save, test], horizontal: true), resultLabel,
-            NSBox.separator(), label("Command X", size: 19), stack([cutSound, previewSound], horizontal: true),
+            NSBox.separator(), label("通用", size: 19),
+            stack([launchAtLogin, loginItems], horizontal: true), loginItemLabel,
+            stack([cutSound, previewSound], horizontal: true),
+            stack([label("截图快捷键"), captureShortcut, clearShortcut], horizontal: true), shortcutLabel,
             NSBox.separator(), label("权限", size: 19),
             stack([accessibilityLabel, accessibilityButton], horizontal: true),
             stack([screenLabel, screenButton], horizontal: true),
@@ -85,6 +99,31 @@ final class SettingsWindow: NSWindowController, NSTextFieldDelegate, NSWindowDel
     required init?(coder: NSCoder) { nil }
 
     @objc private func cutSoundChanged() { coordinator.finderCutSoundEnabled = cutSound.state == .on }
+
+    @objc private func launchAtLoginChanged() {
+        let service = SMAppService.mainApp
+        do {
+            if launchAtLogin.state == .on {
+                if service.status == .notRegistered || service.status == .notFound { try service.register() }
+                if service.status == .requiresApproval { SMAppService.openSystemSettingsLoginItems() }
+            } else if service.status != .notRegistered { try service.unregister() }
+        } catch {
+            if service.status == .requiresApproval { SMAppService.openSystemSettingsLoginItems() }
+            else { showError("无法更新开机自启动", error.localizedDescription, window: window) }
+        }
+        refreshLoginItemStatus()
+    }
+
+    private func refreshLoginItemStatus() {
+        let status = SMAppService.mainApp.status
+        launchAtLogin.state = status == .enabled ? .on : .off
+        switch status {
+        case .enabled: loginItemLabel.stringValue = "已开启，登录 Mac 后在菜单栏后台运行。"
+        case .notRegistered, .notFound: loginItemLabel.stringValue = "开启后，登录 Mac 时自动在菜单栏运行。"
+        case .requiresApproval: loginItemLabel.stringValue = "尚未开启，请在系统“登录项”中允许 MacToolbox。"
+        @unknown default: loginItemLabel.stringValue = "无法读取登录项状态，请在系统设置中检查。"
+        }
+    }
 
     @objc private func targetChanged() {
         guard TargetLanguage.allCases.indices.contains(translationTarget.indexOfSelectedItem) else { return }
@@ -107,6 +146,8 @@ final class SettingsWindow: NSWindowController, NSTextFieldDelegate, NSWindowDel
     }
 
     func refreshStatus() {
+        captureShortcut?.refresh()
+        refreshLoginItemStatus()
         let accessibilityAllowed = coordinator.selection.permissionGranted
         accessibilityLabel.stringValue = accessibilityAllowed ? "辅助功能已就绪" : "辅助功能尚未就绪"
         accessibilityButton?.isEnabled = !accessibilityAllowed
@@ -115,7 +156,8 @@ final class SettingsWindow: NSWindowController, NSTextFieldDelegate, NSWindowDel
         screenButton?.isEnabled = !screenAllowed
     }
     func windowDidBecomeKey(_ notification: Notification) { coordinator.selection.refreshPermission(forceReinstall: true); refreshStatus() }
-    func windowWillClose(_ notification: Notification) { coordinator.captureController.resumeAfterSettings() }
+    func windowDidResignKey(_ notification: Notification) { captureShortcut.cancelRecording() }
+    func windowWillClose(_ notification: Notification) { captureShortcut.cancelRecording(); coordinator.captureController.resumeAfterSettings() }
 
     @objc private func confirmAddress() {
         confirmedOrigin = reuse.state == .on ? try? ChatEndpoint(endpoint.stringValue).origin : nil

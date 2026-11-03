@@ -1,4 +1,5 @@
 import AppKit
+import Carbon
 import Foundation
 import MacToolboxCore
 
@@ -7,8 +8,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var coordinator: AppCoordinator?
     private var diagnosticTimer: Timer?
     private var reopenRequested = false
+    private var launchedAtLogin = false
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
+        // Capture the launch event before asynchronous initialization leaves its handler.
+        let event = NSAppleEventManager.shared().currentAppleEvent
+        launchedAtLogin = event?.eventID == kAEOpenApplication
+            && event?.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem
         Task { @MainActor in
             do {
                 let coordinator = try await AppCoordinator()
@@ -45,7 +51,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 }
                 #endif
                 let isFixture = args.contains("--capture-fixture") || args.contains("--translation-fixture") || args.contains("--color-fixture") || args.contains("--selection-probe")
-                if reopenRequested || args.contains("--show-settings") || (!isFixture && !args.contains("--background") && !args.contains("--show-history")) {
+                if reopenRequested || args.contains("--show-settings") || (!self.launchedAtLogin && !isFixture && !args.contains("--background") && !args.contains("--show-history")) {
                     coordinator.showSettings()
                 }
                 if let index = CommandLine.arguments.firstIndex(of: "--capture-fixture"), CommandLine.arguments.indices.contains(index+1) {
@@ -76,6 +82,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
+    func applicationWillTerminate(_ notification: Notification) { coordinator?.captureShortcut.stop() }
     func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
         guard !CommandLine.arguments.contains("--capture-fixture"),!CommandLine.arguments.contains("--translation-fixture"),!CommandLine.arguments.contains("--color-fixture") else { return false }
         if let coordinator { coordinator.showSettings() }
@@ -85,6 +92,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func writeReport(_ coordinator: AppCoordinator, to url: URL) throws {
         let report: [String: Any] = ["bundleID": Bundle.main.bundleIdentifier ?? "",
             "bundlePath": Bundle.main.bundlePath, "pid": ProcessInfo.processInfo.processIdentifier,
+            "launchedAtLogin": launchedAtLogin,
+            "captureShortcut": ["title": coordinator.captureShortcut.shortcut?.title ?? "",
+                "registered": coordinator.captureShortcut.isRegistered,
+                "error": coordinator.captureShortcut.registrationError ?? ""],
             "monitoringEnabled": coordinator.broker.isEnabled, "menuHistoryCount": coordinator.menuHistoryCount,
             "menuLayout": coordinator.menuLayout, "selectionPermissionGranted": coordinator.selection.permissionGranted,
             "AXTrustedFlag": coordinator.selection.permissionReport.trustedFlag,
