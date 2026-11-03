@@ -67,12 +67,13 @@ cat > "$app/Contents/Info.plist" <<'PLIST'
 <key>CFBundleIconFile</key><string>AppIcon</string>
 <key>CFBundlePackageType</key><string>APPL</string>
 <key>NSPrincipalClass</key><string>NSApplication</string>
-<key>CFBundleShortVersionString</key><string>0.2.15</string>
-<key>CFBundleVersion</key><string>26</string>
+<key>CFBundleShortVersionString</key><string>0.2.16</string>
+<key>CFBundleVersion</key><string>27</string>
 <key>NSHumanReadableCopyright</key><string>© 富途网络科技（盐城）有限公司</string>
 <key>LSMinimumSystemVersion</key><string>14.0</string>
 <key>LSUIElement</key><true/>
 <key>NSHighResolutionCapable</key><true/>
+<key>NSScreenCaptureUsageDescription</key><string>用于你主动发起的截图、标注、取色和截图翻译。</string>
 <key>NSAppTransportSecurity</key><dict><key>NSAllowsLocalNetworking</key><true/></dict>
 </dict></plist>
 PLIST

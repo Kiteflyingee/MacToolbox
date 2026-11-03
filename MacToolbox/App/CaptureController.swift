@@ -56,9 +56,8 @@ final class CaptureController {
     func begin() {
         close(restoreFocus: false)
         guard permissionGranted else {
-            coordinator.status = "请在系统设置允许 MacToolbox 屏幕采集，再重新点击截图。"
-            coordinator.showSettings()
-            requestPermission(explicit: false)
+            coordinator.status = "请按偏好设置中的引导开启屏幕录制权限，再重新点击截图。"
+            coordinator.showScreenPermissionGuide()
             return
         }
         guard let screen = NSScreen.screens.first(where: { NSMouseInRect(NSEvent.mouseLocation, $0.frame, false) }) ?? NSScreen.main,

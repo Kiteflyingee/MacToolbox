@@ -239,6 +239,11 @@ final class AppCoordinator: NSObject, NSMenuDelegate {
         settingsWindow?.showWindow(nil); NSApp.activate(); settingsWindow?.window?.makeKeyAndOrderFront(nil)
     }
 
+    func showScreenPermissionGuide() {
+        showSettings()
+        settingsWindow?.showScreenPermissionGuide()
+    }
+
     func setSelectionTranslation(_ enabled: Bool) {
         preferences.set(enabled, forKey: "selectionTranslationEnabled")
         selection.isEnabled = enabled

@@ -14,6 +14,8 @@ final class SettingsWindow: NSWindowController, NSTextFieldDelegate, NSWindowDel
     private var accessibilityButton: ActionButton!
     private let screenLabel = label("", secondary: true)
     private var screenButton: ActionButton!
+    private var revealScreenAppButton: ActionButton!
+    private let screenHelpLabel = label("列表没有 MacToolbox？点“＋”添加 App，再开启开关。找不到时点“显示应用位置”。", size: 11, secondary: true)
     private var save: ActionButton!
     private var test: ActionButton!
     private var authorize: ActionButton!
@@ -50,7 +52,9 @@ final class SettingsWindow: NSWindowController, NSTextFieldDelegate, NSWindowDel
         authorize = ActionButton("授权已保存的 Key") { [weak self] in self?.authorizeSavedKey() }
         authorize.isEnabled = false
         accessibilityButton = ActionButton("打开辅助功能设置…") { [weak self] in self?.coordinator.selection.requestPermission(enableSelection: false) }
-        screenButton = ActionButton("设置屏幕采集权限…") { [weak self] in self?.coordinator.captureController.requestPermission(); self?.refreshStatus() }
+        screenButton = ActionButton("开启屏幕录制权限…") { [weak self] in self?.showScreenPermissionGuide() }
+        revealScreenAppButton = ActionButton("显示应用位置") { NSWorkspace.shared.activateFileViewerSelecting([Bundle.main.bundleURL]) }
+        screenHelpLabel.widthAnchor.constraint(equalToConstant: 504).isActive = true
         translationTarget.addItems(withTitles: TargetLanguage.allCases.map(\.title))
         translationTarget.selectItem(at: TargetLanguage.allCases.firstIndex(of: coordinator.translationTarget) ?? 0)
         translationTarget.setAccessibilityLabel("默认目标语言")
@@ -82,13 +86,23 @@ final class SettingsWindow: NSWindowController, NSTextFieldDelegate, NSWindowDel
             stack([label("截图快捷键"), captureShortcut, clearShortcut], horizontal: true), shortcutLabel,
             NSBox.separator(), label("权限", size: 19),
             stack([accessibilityLabel, accessibilityButton], horizontal: true),
-            stack([screenLabel, screenButton], horizontal: true),
+            stack([screenLabel, screenButton, revealScreenAppButton], horizontal: true), screenHelpLabel,
             label("在系统设置中开启 MacToolbox。开启后如仍未就绪，请退出并重新打开应用。",size: 11,secondary: true),
             NSBox.separator(), stack([label(copyright, size: 11, secondary: true), website], horizontal: true)], spacing: 9)
         root.edgeInsets = NSEdgeInsets(top: 22, left: 28, bottom: 22, right: 28)
         window.contentView = root
-        window.setContentSize(NSSize(width: max(560, root.fittingSize.width), height: max(480, root.fittingSize.height)))
         refreshStatus()
+        window.setContentSize(NSSize(width: max(560, root.fittingSize.width), height: max(480, root.fittingSize.height)))
+        #if DEBUG
+        if let index = CommandLine.arguments.firstIndex(of: "--screen-permission-guide-fixture") {
+            let appURL = CommandLine.arguments.indices.contains(index + 1)
+                ? URL(fileURLWithPath: CommandLine.arguments[index + 1]) : Bundle.main.bundleURL
+            Task { @MainActor [weak self] in
+                await Task.yield()
+                self?.showScreenPermissionGuide(appURL: appURL)
+            }
+        }
+        #endif
         Task { @MainActor [weak self] in
             guard let self, let saved = await coordinator.settings.current else { return }
             self.endpoint.stringValue = saved.endpointInput; self.model.stringValue = saved.model
@@ -97,6 +111,34 @@ final class SettingsWindow: NSWindowController, NSTextFieldDelegate, NSWindowDel
         }
     }
     required init?(coder: NSCoder) { nil }
+
+    func showScreenPermissionGuide(appURL: URL = Bundle.main.bundleURL) {
+        guard let window, window.attachedSheet == nil else { return }
+        let needsInstallation = appURL.path.hasPrefix("/Volumes/") || appURL.path.contains("/AppTranslocation/")
+        let alert = NSAlert()
+        if needsInstallation {
+            alert.messageText = "请先将 MacToolbox 放到“应用程序”"
+            alert.informativeText = "将安装窗口中的 MacToolbox.app 拖到 Applications，退出当前 App，再从“应用程序”打开后设置权限。这样更容易在系统权限列表中找到正确的应用。"
+            alert.addButton(withTitle: "打开“应用程序”")
+        } else {
+            alert.messageText = "允许 MacToolbox 截图"
+            alert.informativeText = "系统设置打开后，请按以下步骤操作：\n\n1. 在“录屏与系统录音”页面找到 MacToolbox，打开开关。\n\n2. 列表没有 MacToolbox？点击列表下方的“＋”，选择 MacToolbox.app（通常位于“应用程序”），点“打开”，再开启开关。\n\n3. 如系统提示“退出并重新打开”，请按提示完成。\n\n找不到应用时，可先点“显示应用位置”。"
+            alert.addButton(withTitle: "打开系统设置")
+            alert.addButton(withTitle: "显示应用位置")
+        }
+        alert.addButton(withTitle: "取消")
+        alert.beginSheetModal(for: window) { [weak self] response in
+            MainActor.assumeIsolated {
+                guard let self else { return }
+                if response == .alertFirstButtonReturn {
+                    if needsInstallation { NSWorkspace.shared.open(URL(fileURLWithPath: "/Applications", isDirectory: true)) }
+                    else { self.coordinator.captureController.requestPermission(); self.refreshStatus() }
+                } else if response == .alertSecondButtonReturn, !needsInstallation {
+                    NSWorkspace.shared.activateFileViewerSelecting([appURL])
+                }
+            }
+        }
+    }
 
     @objc private func cutSoundChanged() { coordinator.finderCutSoundEnabled = cutSound.state == .on }
 
@@ -152,8 +194,10 @@ final class SettingsWindow: NSWindowController, NSTextFieldDelegate, NSWindowDel
         accessibilityLabel.stringValue = accessibilityAllowed ? "辅助功能已就绪" : "辅助功能尚未就绪"
         accessibilityButton?.isEnabled = !accessibilityAllowed
         let screenAllowed = coordinator.captureController.permissionGranted
-        screenLabel.stringValue = screenAllowed ? "屏幕采集已就绪" : "屏幕采集尚未就绪"
+        screenLabel.stringValue = screenAllowed ? "屏幕录制权限已就绪" : "屏幕录制权限尚未就绪"
         screenButton?.isEnabled = !screenAllowed
+        revealScreenAppButton?.isHidden = screenAllowed
+        screenHelpLabel.isHidden = screenAllowed
     }
     func windowDidBecomeKey(_ notification: Notification) { coordinator.selection.refreshPermission(forceReinstall: true); refreshStatus() }
     func windowDidResignKey(_ notification: Notification) { captureShortcut.cancelRecording() }

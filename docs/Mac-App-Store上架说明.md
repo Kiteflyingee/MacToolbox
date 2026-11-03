@@ -1,6 +1,6 @@
 # MacToolbox 的 Mac App Store 上架路径
 
-截至 2026-11-03，0.2.15 是 Developer ID 签名、公证后通过 GitHub 分发的版本。Apple 公证不是 App Store 审核，通过公证的 DMG 也不是商店上传格式。
+截至 2026-11-03，0.2.16 是 Developer ID 签名、公证后通过 GitHub 分发的版本。Apple 公证不是 App Store 审核，通过公证的 DMG 也不是商店上传格式。
 
 ## 当前版本的主要阻碍
 

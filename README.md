@@ -4,15 +4,17 @@ MacToolbox 是一款 macOS 菜单栏工具，提供 Finder 文件剪切、剪贴
 
 ## 下载与安装
 
-从 [v0.2.15 Release](https://github.com/Kiteflyingee/MacToolbox/releases/tag/v0.2.15) 下载 DMG，打开后将 **MacToolbox.app 拖到 Applications**。更新时先退出旧版并选择替换，再从“应用程序”打开。支持 macOS 14 及以上，提供 Intel 和 Apple 芯片通用版本。Apple 芯片版本已交叉编译，尚未在 Apple 芯片 Mac 上实机验证。
+从 [v0.2.16 Release](https://github.com/Kiteflyingee/MacToolbox/releases/tag/v0.2.16) 下载 DMG，打开后将 **MacToolbox.app 拖到 Applications**。更新时先退出旧版并选择替换，再从“应用程序”打开。支持 macOS 14 及以上，提供 Intel 和 Apple 芯片通用版本。Apple 芯片版本已交叉编译，尚未在 Apple 芯片 Mac 上实机验证。
 
-**0.2.15 已通过 Apple 公证**，DMG 已装订票据。带下载隔离标记的 DMG 和从中复制出的 App 均通过本机 Gatekeeper，来源为 `Notarized Developer ID`。应用与 DMG 使用富途网络科技（盐城）有限公司的 Developer ID 签名。使用前需按功能授权辅助功能和屏幕采集权限。请使用本次新 DMG；旧的 PKG 形式发行包未公证。
+**0.2.16 已通过 Apple 公证**，DMG 已装订票据。带下载隔离标记的 DMG 和从中复制出的 App 均通过本机 Gatekeeper，来源为 `Notarized Developer ID`。应用与 DMG 使用富途网络科技（盐城）有限公司的 Developer ID 签名。使用前需按功能授权辅助功能和屏幕采集权限。请使用本次新 DMG；旧的 PKG 形式发行包未公证。
 
 Release 同时提供 `.sha256` 校验文件，可在下载目录运行：
 
 ```sh
-shasum -a 256 -c MacToolbox-0.2.15-universal.dmg.sha256
+shasum -a 256 -c MacToolbox-0.2.16-universal.dmg.sha256
 ```
+
+0.2.16 增加分步授权引导：系统列表没有 MacToolbox 时会说明如何点“＋”添加，并可直接显示当前 App 位置。从 DMG 运行时先提示安装到 Applications。macOS 27 的自动登记行为仍需实机复核，详见[屏幕录制权限](docs/屏幕录制权限.md)。
 
 ## 功能
 
