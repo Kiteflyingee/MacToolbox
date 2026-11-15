@@ -1,0 +1,9 @@
+MacToolbox toolbar vector icons
+
+Selected toolbar vector glyphs are from the MingCute and Phosphor icon families:
+
+MingCute: https://github.com/mingcute-design/mingcute-icons
+Apache License 2.0; see MingCute-Apache-2.0.txt.
+
+Phosphor Icons: https://github.com/phosphor-icons/core
+Copyright (c) 2023 Phosphor Icons. MIT; see Phosphor-MIT.txt.

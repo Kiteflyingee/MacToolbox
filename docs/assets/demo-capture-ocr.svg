@@ -1,0 +1,287 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="500" viewBox="0 0 880 500" role="img" aria-label="MacToolbox 截图标注、马赛克打码与 OCR 翻译演示">
+<style>
+text { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; }
+.mono { font-family: 'SF Mono', ui-monospace, Menlo, Consolas, monospace; }
+.co-s1 { opacity: 1; animation: co-p1 8.5s ease-in-out infinite; }
+.co-s2 { opacity: 0; animation: co-p2 8.5s ease-in-out infinite; }
+.co-s3 { opacity: 0; animation: co-p3 8.5s ease-in-out infinite; }
+.co-s4 { opacity: 0; animation: co-p4 8.5s ease-in-out infinite; }
+.co-arrow { stroke-dasharray: 220; stroke-dashoffset: 220; animation: co-draw 8.5s ease-in-out infinite; }
+.co-tip { opacity: 0; animation: co-tip 8.5s ease-in-out infinite; }
+.co-badge { opacity: 0; animation: co-badge 8.5s ease-in-out infinite; }
+.co-mos1 { opacity: 0; animation: co-m1 8.5s ease-in-out infinite; }
+.co-mos2 { opacity: 0; animation: co-m2 8.5s ease-in-out infinite; }
+.co-mos3 { opacity: 0; animation: co-m3 8.5s ease-in-out infinite; }
+.co-ocr-card { opacity: 0; animation: co-card 8.5s ease-in-out infinite; }
+.co-ocr-load { opacity: 0; animation: co-load 8.5s ease-in-out infinite; }
+.co-ocr-res { opacity: 0; animation: co-res 8.5s ease-in-out infinite; }
+.co-tb-arr { opacity: 0; animation: co-p2 8.5s ease-in-out infinite; }
+.co-tb-mos { opacity: 0; animation: co-p3 8.5s ease-in-out infinite; }
+.co-tb-ocr { opacity: 0; animation: co-p4 8.5s ease-in-out infinite; }
+.co-cursor { animation: co-cur 8.5s ease-in-out infinite; }
+
+@keyframes co-p1 { 0%, 19% { opacity: 1; } 22%, 97% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes co-p2 { 0%, 18% { opacity: 0; } 22%, 44% { opacity: 1; } 47%, 100% { opacity: 0; } }
+@keyframes co-p3 { 0%, 43% { opacity: 0; } 47%, 66% { opacity: 1; } 69%, 100% { opacity: 0; } }
+@keyframes co-p4 { 0%, 65% { opacity: 0; } 69%, 97% { opacity: 1; } 100% { opacity: 0; } }
+
+@keyframes co-draw {
+  0%, 20% { stroke-dashoffset: 220; }
+  34%, 94% { stroke-dashoffset: 0; }
+  98%, 100% { stroke-dashoffset: 220; }
+}
+@keyframes co-tip {
+  0%, 31% { opacity: 0; }
+  34%, 94% { opacity: 1; }
+  98%, 100% { opacity: 0; }
+}
+@keyframes co-badge {
+  0%, 34% { opacity: 0; transform: translate(0px, 6px); }
+  40%, 94% { opacity: 1; transform: translate(0px, 0px); }
+  98%, 100% { opacity: 0; transform: translate(0px, 6px); }
+}
+@keyframes co-m1 { 0%, 45% { opacity: 0; } 49%, 94% { opacity: 1; } 98%, 100% { opacity: 0; } }
+@keyframes co-m2 { 0%, 50% { opacity: 0; } 54%, 94% { opacity: 1; } 98%, 100% { opacity: 0; } }
+@keyframes co-m3 { 0%, 55% { opacity: 0; } 59%, 94% { opacity: 1; } 98%, 100% { opacity: 0; } }
+
+@keyframes co-card {
+  0%, 67% { opacity: 0; transform: translate(0px, 10px); }
+  73%, 95% { opacity: 1; transform: translate(0px, 0px); }
+  100% { opacity: 0; transform: translate(0px, 6px); }
+}
+@keyframes co-load {
+  0%, 68% { opacity: 0; }
+  71%, 76% { opacity: 1; }
+  79%, 100% { opacity: 0; }
+}
+@keyframes co-res {
+  0%, 76% { opacity: 0; }
+  80%, 95% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes co-cur {
+  0%, 18% { transform: translate(495px, 340px); }
+  24%, 42% { transform: translate(236px, 212px); }
+  48%, 64% { transform: translate(294px, 166px); }
+  69%, 95% { transform: translate(394px, 404px); }
+  100% { transform: translate(495px, 340px); }
+}
+</style>
+<defs>
+  <clipPath id="co-frame">
+    <rect x="0" y="0" width="880" height="500" rx="18"/>
+  </clipPath>
+  <linearGradient id="co-bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#0b1222"/>
+    <stop offset="50%" stop-color="#132645"/>
+    <stop offset="100%" stop-color="#09111e"/>
+  </linearGradient>
+  <radialGradient id="co-glow-a" cx="0.22" cy="0.18" r="0.55">
+    <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.28"/>
+    <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="co-glow-b" cx="0.82" cy="0.84" r="0.55">
+    <stop offset="0%" stop-color="#6366f1" stop-opacity="0.22"/>
+    <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="co-shadow" x="-12%" y="-12%" width="124%" height="130%">
+    <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#020617" flood-opacity="0.48"/>
+  </filter>
+  <filter id="co-soft-shadow" x="-15%" y="-15%" width="130%" height="135%">
+    <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#020617" flood-opacity="0.32"/>
+  </filter>
+</defs>
+<g clip-path="url(#co-frame)">
+<rect x="0" y="0" width="880" height="500" fill="url(#co-bg)"/>
+<rect x="0" y="0" width="880" height="500" fill="url(#co-glow-a)"/>
+<rect x="0" y="0" width="880" height="500" fill="url(#co-glow-b)"/>
+<!-- Menu Bar -->
+<rect x="0" y="0" width="880" height="28" fill="#09101d" fill-opacity="0.82"/>
+<line x1="0" y1="28" x2="880" y2="28" stroke="#ffffff" stroke-opacity="0.1"/>
+<g transform="translate(18,6)">
+  <path d="M 8.2 3.4 C 9.0 2.4 9.5 1.1 9.3 0 C 8.1 0.1 6.7 0.8 5.9 1.8 C 5.1 2.7 4.5 4.0 4.7 5.2 C 6.0 5.3 7.4 4.5 8.2 3.4 Z" fill="#f1f5f9"/>
+  <path d="M 11.4 7.6 C 11.4 5.6 13.0 4.6 13.1 4.5 C 12.1 3.1 10.6 2.9 10.1 2.9 C 8.8 2.7 7.6 3.7 6.9 3.7 C 6.2 3.7 5.2 2.9 4.1 2.9 C 2.7 2.9 1.4 3.7 0.7 5.0 C -0.8 7.6 0.3 11.5 1.8 13.6 C 2.5 14.6 3.3 15.8 4.4 15.7 C 5.5 15.7 5.9 15.0 7.2 15.0 C 8.5 15.0 8.9 15.7 10.0 15.7 C 11.1 15.7 11.9 14.7 12.6 13.7 C 13.4 12.5 13.7 11.3 13.8 11.2 C 13.7 11.2 11.4 10.3 11.4 7.6 Z" fill="#f1f5f9"/>
+</g>
+<text x="44" y="18" fill="#f8fafc" font-size="12" font-weight="700">MacToolbox</text>
+<text x="140.4" y="18" fill="#cbd5e1" font-size="12" font-weight="400">截图编辑器</text><text x="218.4" y="18" fill="#cbd5e1" font-size="12" font-weight="400">标注工具</text><text x="284.4" y="18" fill="#cbd5e1" font-size="12" font-weight="400">取色器</text><text x="338.4" y="18" fill="#cbd5e1" font-size="12" font-weight="400">OCR 翻译</text>
+<g transform="translate(736,5)">
+  <rect x="0" y="0" width="22" height="18" rx="5" fill="#0284c7" stroke="#38bdf8" stroke-width="1"/>
+  <path d="M 11.0 4.0 L 12.4 7.6 L 16.0 9.0 L 12.4 10.4 L 11.0 14.0 L 9.6 10.4 L 6.0 9.0 L 9.6 7.6 Z" fill="#ffffff"/>
+</g>
+<!-- Wi-Fi & Clock -->
+<g transform="translate(772,8)" stroke="#cbd5e1" stroke-width="1.4" fill="none" stroke-linecap="round">
+  <path d="M 0 5 Q 6 0 12 5"/>
+  <path d="M 2.5 8 Q 6 5 9.5 8"/>
+  <circle cx="6" cy="11" r="1" fill="#cbd5e1" stroke="none"/>
+</g>
+<text x="862" y="18" text-anchor="end" fill="#e2e8f0" font-size="12" font-weight="500">周日 14:28</text>
+
+<!-- Desktop background app window slightly visible behind capture -->
+<rect x="34" y="42" width="530" height="340" rx="12" fill="#e2e8f0" fill-opacity="0.24"/>
+<!-- Dimmed screen overlay outside selection rect (x=48, y=48, w=486, h=318) -->
+<path d="M 0 28 H 880 V 500 H 0 Z M 48 48 V 366 H 534 V 48 Z" fill="#020617" fill-opacity="0.54" fill-rule="evenodd"/>
+
+<!-- Active Capture Region Content -->
+<g>
+  <rect x="48" y="48" width="486" height="318" fill="#ffffff"/>
+  <rect x="48" y="48" width="486" height="44" fill="#f8fafc"/>
+  <line x1="48" y1="92" x2="534" y2="92" stroke="#e2e8f0"/>
+  <circle cx="70" cy="70" r="5" fill="#ff5f57"/>
+  <circle cx="86" cy="70" r="5" fill="#febc2e"/>
+  <circle cx="102" cy="70" r="5" fill="#28c840"/>
+  <text x="122" y="75" fill="#0f172a" font-size="13" font-weight="700">MacToolbox · Release Notes &amp; API Diagnostics</text>
+
+  <!-- Sensitive API Key Row -->
+  <text x="72" y="132" fill="#475569" font-size="12" font-weight="600">Gateway Token (需打码):</text>
+  <rect x="200" y="142" width="246" height="40" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="214" y="166" class="mono" fill="#0f172a" font-size="12.5" font-weight="600">sk-live-98f2a7e4b910c41a</text>
+
+  <!-- Target Paragraph for Arrow + OCR -->
+  <rect x="72" y="206" width="438" height="122" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="90" y="232" fill="#0369a1" font-size="12" font-weight="700">Idle Energy Architecture</text>
+  <text x="90" y="256" fill="#1e293b" font-size="13" font-weight="600">Event-driven hooks keep background CPU</text>
+  <text x="90" y="276" fill="#1e293b" font-size="13" font-weight="600">at 0.0% while macOS sleeps or idles.</text>
+  <rect x="90" y="294" width="164" height="22" rx="6" fill="#dcfce7"/>
+  <text x="172" y="309" text-anchor="middle" fill="#15803d" font-size="11" font-weight="700">CPU 4.7% &#8594; 0.0% (Sample OK)</text>
+
+  <!-- Curved Arrow Annotation -->
+  <path class="co-arrow" d="M 382 304 Q 422 268 370 251" fill="none" stroke="#ef4444" stroke-width="3.2" stroke-linecap="round"/>
+  <polygon class="co-tip" points="363,250 375,245 373,251 375,257" fill="#ef4444"/>
+
+  <!-- Step Badge ① Callout -->
+  <g class="co-badge">
+    <line x1="382" y1="304" x2="394" y2="305" stroke="#ef4444" stroke-width="2" stroke-dasharray="3,2"/>
+    <circle cx="406" cy="305" r="12" fill="#ef4444"/>
+    <text x="406" y="310" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="700">1</text>
+    <rect x="423" y="293" width="76" height="24" rx="7" fill="#ef4444"/>
+    <text x="461" y="309" text-anchor="middle" fill="#ffffff" font-size="11.5" font-weight="600">核心优化点</text>
+  </g>
+
+  <!-- Staggered Mosaic Privacy Mask -->
+  <g class="co-mos1"><rect x="202" y="144" width="9" height="9" fill="#cbd5e1"/><rect x="211" y="144" width="9" height="9" fill="#475569"/><rect x="220" y="144" width="9" height="9" fill="#94a3b8"/><rect x="229" y="144" width="9" height="9" fill="#64748b"/><rect x="238" y="144" width="9" height="9" fill="#475569"/><rect x="247" y="144" width="9" height="9" fill="#cbd5e1"/><rect x="256" y="144" width="9" height="9" fill="#64748b"/><rect x="265" y="144" width="9" height="9" fill="#94a3b8"/><rect x="274" y="144" width="9" height="9" fill="#cbd5e1"/><rect x="202" y="153" width="9" height="9" fill="#cbd5e1"/><rect x="211" y="153" width="9" height="9" fill="#94a3b8"/><rect x="220" y="153" width="9" height="9" fill="#e2e8f0"/><rect x="229" y="153" width="9" height="9" fill="#334155"/><rect x="238" y="153" width="9" height="9" fill="#94a3b8"/><rect x="247" y="153" width="9" height="9" fill="#cbd5e1"/><rect x="256" y="153" width="9" height="9" fill="#334155"/><rect x="265" y="153" width="9" height="9" fill="#e2e8f0"/><rect x="274" y="153" width="9" height="9" fill="#cbd5e1"/><rect x="202" y="162" width="9" height="9" fill="#64748b"/><rect x="211" y="162" width="9" height="9" fill="#94a3b8"/><rect x="220" y="162" width="9" height="9" fill="#cbd5e1"/><rect x="229" y="162" width="9" height="9" fill="#475569"/><rect x="238" y="162" width="9" height="9" fill="#94a3b8"/><rect x="247" y="162" width="9" height="9" fill="#64748b"/><rect x="256" y="162" width="9" height="9" fill="#475569"/><rect x="265" y="162" width="9" height="9" fill="#cbd5e1"/><rect x="274" y="162" width="9" height="9" fill="#64748b"/><rect x="202" y="171" width="9" height="9" fill="#334155"/><rect x="211" y="171" width="9" height="9" fill="#e2e8f0"/><rect x="220" y="171" width="9" height="9" fill="#cbd5e1"/><rect x="229" y="171" width="9" height="9" fill="#94a3b8"/><rect x="238" y="171" width="9" height="9" fill="#e2e8f0"/><rect x="247" y="171" width="9" height="9" fill="#334155"/><rect x="256" y="171" width="9" height="9" fill="#94a3b8"/><rect x="265" y="171" width="9" height="9" fill="#cbd5e1"/><rect x="274" y="171" width="9" height="9" fill="#334155"/></g>
+  <g class="co-mos2"><rect x="283" y="144" width="9" height="9" fill="#475569"/><rect x="292" y="144" width="9" height="9" fill="#94a3b8"/><rect x="301" y="144" width="9" height="9" fill="#64748b"/><rect x="310" y="144" width="9" height="9" fill="#475569"/><rect x="319" y="144" width="9" height="9" fill="#cbd5e1"/><rect x="328" y="144" width="9" height="9" fill="#64748b"/><rect x="337" y="144" width="9" height="9" fill="#94a3b8"/><rect x="346" y="144" width="9" height="9" fill="#cbd5e1"/><rect x="355" y="144" width="9" height="9" fill="#475569"/><rect x="283" y="153" width="9" height="9" fill="#94a3b8"/><rect x="292" y="153" width="9" height="9" fill="#e2e8f0"/><rect x="301" y="153" width="9" height="9" fill="#334155"/><rect x="310" y="153" width="9" height="9" fill="#94a3b8"/><rect x="319" y="153" width="9" height="9" fill="#cbd5e1"/><rect x="328" y="153" width="9" height="9" fill="#334155"/><rect x="337" y="153" width="9" height="9" fill="#e2e8f0"/><rect x="346" y="153" width="9" height="9" fill="#cbd5e1"/><rect x="355" y="153" width="9" height="9" fill="#94a3b8"/><rect x="283" y="162" width="9" height="9" fill="#94a3b8"/><rect x="292" y="162" width="9" height="9" fill="#cbd5e1"/><rect x="301" y="162" width="9" height="9" fill="#475569"/><rect x="310" y="162" width="9" height="9" fill="#94a3b8"/><rect x="319" y="162" width="9" height="9" fill="#64748b"/><rect x="328" y="162" width="9" height="9" fill="#475569"/><rect x="337" y="162" width="9" height="9" fill="#cbd5e1"/><rect x="346" y="162" width="9" height="9" fill="#64748b"/><rect x="355" y="162" width="9" height="9" fill="#94a3b8"/><rect x="283" y="171" width="9" height="9" fill="#e2e8f0"/><rect x="292" y="171" width="9" height="9" fill="#cbd5e1"/><rect x="301" y="171" width="9" height="9" fill="#94a3b8"/><rect x="310" y="171" width="9" height="9" fill="#e2e8f0"/><rect x="319" y="171" width="9" height="9" fill="#334155"/><rect x="328" y="171" width="9" height="9" fill="#94a3b8"/><rect x="337" y="171" width="9" height="9" fill="#cbd5e1"/><rect x="346" y="171" width="9" height="9" fill="#334155"/><rect x="355" y="171" width="9" height="9" fill="#e2e8f0"/></g>
+  <g class="co-mos3"><rect x="364" y="144" width="9" height="9" fill="#94a3b8"/><rect x="373" y="144" width="9" height="9" fill="#64748b"/><rect x="382" y="144" width="9" height="9" fill="#475569"/><rect x="391" y="144" width="9" height="9" fill="#cbd5e1"/><rect x="400" y="144" width="9" height="9" fill="#64748b"/><rect x="409" y="144" width="9" height="9" fill="#94a3b8"/><rect x="418" y="144" width="9" height="9" fill="#cbd5e1"/><rect x="427" y="144" width="9" height="9" fill="#475569"/><rect x="364" y="153" width="9" height="9" fill="#e2e8f0"/><rect x="373" y="153" width="9" height="9" fill="#334155"/><rect x="382" y="153" width="9" height="9" fill="#94a3b8"/><rect x="391" y="153" width="9" height="9" fill="#cbd5e1"/><rect x="400" y="153" width="9" height="9" fill="#334155"/><rect x="409" y="153" width="9" height="9" fill="#e2e8f0"/><rect x="418" y="153" width="9" height="9" fill="#cbd5e1"/><rect x="427" y="153" width="9" height="9" fill="#94a3b8"/><rect x="364" y="162" width="9" height="9" fill="#cbd5e1"/><rect x="373" y="162" width="9" height="9" fill="#475569"/><rect x="382" y="162" width="9" height="9" fill="#94a3b8"/><rect x="391" y="162" width="9" height="9" fill="#64748b"/><rect x="400" y="162" width="9" height="9" fill="#475569"/><rect x="409" y="162" width="9" height="9" fill="#cbd5e1"/><rect x="418" y="162" width="9" height="9" fill="#64748b"/><rect x="427" y="162" width="9" height="9" fill="#94a3b8"/><rect x="364" y="171" width="9" height="9" fill="#cbd5e1"/><rect x="373" y="171" width="9" height="9" fill="#94a3b8"/><rect x="382" y="171" width="9" height="9" fill="#e2e8f0"/><rect x="391" y="171" width="9" height="9" fill="#334155"/><rect x="400" y="171" width="9" height="9" fill="#94a3b8"/><rect x="409" y="171" width="9" height="9" fill="#cbd5e1"/><rect x="418" y="171" width="9" height="9" fill="#334155"/><rect x="427" y="171" width="9" height="9" fill="#e2e8f0"/></g>
+</g>
+
+<!-- Crop Selection Frame & Size Tag -->
+<rect x="48" y="48" width="486" height="318" fill="none" stroke="#38bdf8" stroke-width="1.8"/>
+<rect x="44" y="44" width="8" height="8" rx="1.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<rect x="287" y="44" width="8" height="8" rx="1.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<rect x="530" y="44" width="8" height="8" rx="1.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<rect x="530" y="203" width="8" height="8" rx="1.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<rect x="530" y="362" width="8" height="8" rx="1.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<rect x="287" y="362" width="8" height="8" rx="1.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<rect x="44" y="362" width="8" height="8" rx="1.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<rect x="44" y="203" width="8" height="8" rx="1.5" fill="#ffffff" stroke="#0284c7" stroke-width="1.4"/>
+<rect x="52" y="29" width="84" height="19" rx="5" fill="#0f172a" fill-opacity="0.9" stroke="#38bdf8" stroke-opacity="0.5"/>
+<text x="94" y="42" text-anchor="middle" class="mono" fill="#e2e8f0" font-size="10.5" font-weight="600">486 × 318</text>
+
+<!-- Floating CaptureBar Toolbar -->
+<g filter="url(#co-soft-shadow)">
+  <rect x="46" y="382" width="502" height="42" rx="13" fill="#f8fafc" fill-opacity="0.98" stroke="#cbd5e1"/>
+  <!-- Grip -->
+  <circle cx="58" cy="398" r="1.4" fill="#94a3b8"/><circle cx="63" cy="398" r="1.4" fill="#94a3b8"/>
+  <circle cx="58" cy="403" r="1.4" fill="#94a3b8"/><circle cx="63" cy="403" r="1.4" fill="#94a3b8"/>
+  <circle cx="58" cy="408" r="1.4" fill="#94a3b8"/><circle cx="63" cy="408" r="1.4" fill="#94a3b8"/>
+
+  <!-- Active highlights on toolbar -->
+  <rect class="co-tb-arr" x="150" y="388" width="26" height="30" rx="7" fill="#0284c7" fill-opacity="0.16"/>
+  <rect class="co-tb-mos" x="242" y="388" width="26" height="30" rx="7" fill="#0284c7" fill-opacity="0.16"/>
+  <rect class="co-tb-ocr" x="378" y="388" width="32" height="30" rx="7" fill="#0284c7" fill-opacity="0.18"/>
+
+  <!-- Tool glyphs -->
+  <!-- Pointer -->
+  <path d="M 74 395 L 74 409 L 78 406 L 81 412 L 83 411 L 80 405 L 85 405 Z" fill="#334155"/>
+  <!-- Remark bubble -->
+  <rect x="96" y="395" width="14" height="11" rx="3" fill="none" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="100" cy="400.5" r="1" fill="#334155"/><circle cx="106" cy="400.5" r="1" fill="#334155"/>
+  <!-- Number circle -->
+  <circle cx="127" cy="403" r="7" fill="none" stroke="#334155" stroke-width="1.5"/>
+  <text x="127" y="407" text-anchor="middle" fill="#334155" font-size="9.5" font-weight="700">1</text>
+  <!-- Shape -->
+  <rect x="140" y="395" width="11" height="11" rx="2" fill="none" stroke="#334155" stroke-width="1.5"/>
+  <!-- Arrow tool -->
+  <line x1="158" y1="409" x2="169" y2="397" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+  <polyline points="163,397 169,397 169,403" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Text -->
+  <text x="184" y="408" text-anchor="middle" fill="#334155" font-size="13" font-weight="700">T</text>
+  <!-- Highlight -->
+  <rect x="199" y="396" width="12" height="12" rx="2.5" fill="none" stroke="#334155" stroke-width="1.5" stroke-dasharray="3,1.5"/>
+  <!-- Pen -->
+  <path d="M 222 409 L 231 397 L 234 399 L 225 411 Z" fill="none" stroke="#334155" stroke-width="1.4"/>
+  <!-- Mosaic grid -->
+  <rect x="249" y="396" width="5" height="5" fill="#334155"/><rect x="256" y="396" width="5" height="5" fill="#64748b"/>
+  <rect x="249" y="403" width="5" height="5" fill="#64748b"/><rect x="256" y="403" width="5" height="5" fill="#334155"/>
+  <!-- Magnifier -->
+  <circle cx="277" cy="401" r="5.5" fill="none" stroke="#334155" stroke-width="1.5"/>
+  <line x1="281" y1="405" x2="285" y2="409" stroke="#334155" stroke-width="1.6" stroke-linecap="round"/>
+
+  <line x1="296" y1="391" x2="296" y2="415" stroke="#cbd5e1"/>
+  <!-- Crop -->
+  <path d="M 310 395 V 407 H 322 M 314 398 H 320 V 411" fill="none" stroke="#334155" stroke-width="1.4"/>
+  <!-- Eyedropper -->
+  <path d="M 340 408 L 350 397 M 347 396 L 352 401" stroke="#0ea5e9" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- OCR Translate Button -->
+  <rect x="380" y="391" width="28" height="24" rx="6" fill="#0284c7" fill-opacity="0.1"/>
+  <text x="394" y="407" text-anchor="middle" fill="#0369a1" font-size="12" font-weight="700">译</text>
+
+  <line x1="418" y1="391" x2="418" y2="415" stroke="#cbd5e1"/>
+  <!-- Undo / Redo / Cancel / Save / Check -->
+  <text x="433" y="408" text-anchor="middle" fill="#475569" font-size="13">&#8630;</text>
+  <text x="455" y="408" text-anchor="middle" fill="#94a3b8" font-size="13">&#8631;</text>
+  <text x="477" y="408" text-anchor="middle" fill="#ef4444" font-size="13" font-weight="700">&#10005;</text>
+  <text x="499" y="408" text-anchor="middle" fill="#2563eb" font-size="13">&#8681;</text>
+  <circle cx="526" cy="403" r="10" fill="#16a34a" fill-opacity="0.14"/>
+  <text x="526" y="408" text-anchor="middle" fill="#16a34a" font-size="13" font-weight="700">&#10003;</text>
+</g>
+
+<!-- Floating OCR Translation Result Card (18px radius matching TranslationStyle.cardRadius) -->
+<g class="co-ocr-card" filter="url(#co-shadow)">
+  <rect x="556" y="74" width="288" height="278" rx="18" fill="#ffffff" fill-opacity="0.96" stroke="#cbd5e1"/>
+  <text x="576" y="106" fill="#64748b" font-size="12" font-weight="500">译为</text>
+  <rect x="608" y="88" width="138" height="24" rx="7" fill="#f1f5f9"/>
+  <text x="618" y="104" fill="#0f172a" font-size="12" font-weight="600">自动（中英互译） &#9662;</text>
+  <rect x="762" y="89" width="62" height="22" rx="6" fill="#e0f2fe"/>
+  <text x="793" y="104" text-anchor="middle" fill="#0369a1" font-size="10.5" font-weight="700">OCR 截图</text>
+  <line x1="576" y1="124" x2="824" y2="124" stroke="#e2e8f0"/>
+
+  <!-- Brief OCR recognizing state -->
+  <g class="co-ocr-load">
+    <circle cx="586" cy="154" r="6" fill="none" stroke="#0284c7" stroke-width="2" stroke-dasharray="14 8"/>
+    <text x="602" y="159" fill="#334155" font-size="13" font-weight="600">正在识别截图文字…</text>
+  </g>
+
+  <!-- OCR + Translation Result -->
+  <g class="co-ocr-res">
+    <text x="576" y="154" fill="#64748b" font-size="11.5" font-weight="600">空闲能耗架构</text>
+    <text x="576" y="182" fill="#0f172a" font-size="14" font-weight="500">事件驱动钩子使系统后台在</text>
+    <text x="576" y="206" fill="#0f172a" font-size="14" font-weight="500">空闲或休眠时 CPU 保持在 0.0%。</text>
+    <rect x="576" y="226" width="248" height="34" rx="8" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="588" y="247" fill="#475569" font-size="12">敏感令牌已通过马赛克遮挡处理</text>
+
+    <line x1="576" y1="296" x2="824" y2="296" stroke="#e2e8f0"/>
+    <text x="576" y="324" fill="#64748b" font-size="11">原文自动识别</text>
+    <rect x="738" y="307" width="86" height="26" rx="7" fill="#e2e8f0" fill-opacity="0.7"/>
+    <text x="781" y="324" text-anchor="middle" fill="#0f172a" font-size="11.5" font-weight="600">复制译文</text>
+  </g>
+</g>
+
+<g class="co-cursor"><path d="M 0 0 L 0 18 L 4.5 14 L 8.2 21 L 10.8 19.7 L 7.2 12.8 L 13 12.8 Z" fill="#0f172a" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/></g>
+
+<g transform="translate(0,456)">
+<rect x="44" y="0" width="189" height="28" rx="14" fill="#0f172a" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.12"/>
+<rect class="co-s1" x="44" y="0" width="189" height="28" rx="14" fill="#0284c7" fill-opacity="0.92" stroke="#38bdf8" stroke-opacity="0.9"/>
+<text x="138.5" y="18.5" text-anchor="middle" fill="#f1f5f9" font-size="12" font-weight="600">① 框选截图区域</text>
+<rect x="245" y="0" width="189" height="28" rx="14" fill="#0f172a" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.12"/>
+<rect class="co-s2" x="245" y="0" width="189" height="28" rx="14" fill="#0284c7" fill-opacity="0.92" stroke="#38bdf8" stroke-opacity="0.9"/>
+<text x="339.5" y="18.5" text-anchor="middle" fill="#f1f5f9" font-size="12" font-weight="600">② 箭头与序号标注</text>
+<rect x="446" y="0" width="189" height="28" rx="14" fill="#0f172a" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.12"/>
+<rect class="co-s3" x="446" y="0" width="189" height="28" rx="14" fill="#0284c7" fill-opacity="0.92" stroke="#38bdf8" stroke-opacity="0.9"/>
+<text x="540.5" y="18.5" text-anchor="middle" fill="#f1f5f9" font-size="12" font-weight="600">③ 马赛克隐私打码</text>
+<rect x="647" y="0" width="189" height="28" rx="14" fill="#0f172a" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.12"/>
+<rect class="co-s4" x="647" y="0" width="189" height="28" rx="14" fill="#0284c7" fill-opacity="0.92" stroke="#38bdf8" stroke-opacity="0.9"/>
+<text x="741.5" y="18.5" text-anchor="middle" fill="#f1f5f9" font-size="12" font-weight="600">④ 一键 OCR 翻译</text>
+</g>
+</g>
+<rect x="0.5" y="0.5" width="879" height="499" rx="17.5" fill="none" stroke="#ffffff" stroke-opacity="0.16"/>
+</svg>

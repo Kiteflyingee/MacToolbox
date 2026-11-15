@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="500" viewBox="0 0 880 500" role="img" aria-label="MacToolbox 划词与复制即时翻译演示">
+<style>
+text { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; }
+.mono { font-family: 'SF Mono', ui-monospace, Menlo, Consolas, monospace; }
+.tr-s1 { opacity: 1; animation: tr-p1 7.5s ease-in-out infinite; }
+.tr-s2 { opacity: 0; animation: tr-p2 7.5s ease-in-out infinite; }
+.tr-s3 { opacity: 0; animation: tr-p3 7.5s ease-in-out infinite; }
+.tr-s4 { opacity: 0; animation: tr-p4 7.5s ease-in-out infinite; }
+.tr-hl1 { transform: translateX(-460px); animation: tr-h1 7.5s ease-in-out infinite; }
+.tr-hl2 { transform: translateX(-440px); animation: tr-h2 7.5s ease-in-out infinite; }
+.tr-pill { opacity: 0; animation: tr-pill 7.5s ease-in-out infinite; }
+.tr-card { opacity: 0; animation: tr-card 7.5s ease-in-out infinite; }
+.tr-btn-copy { opacity: 1; animation: tr-bc 7.5s ease-in-out infinite; }
+.tr-btn-done { opacity: 0; animation: tr-bd 7.5s ease-in-out infinite; }
+.tr-cursor { animation: tr-cur 7.5s ease-in-out infinite; }
+
+@keyframes tr-p1 { 0%, 23% { opacity: 1; } 26%, 97% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes tr-p2 { 0%, 22% { opacity: 0; } 26%, 45% { opacity: 1; } 48%, 100% { opacity: 0; } }
+@keyframes tr-p3 { 0%, 44% { opacity: 0; } 48%, 74% { opacity: 1; } 77%, 100% { opacity: 0; } }
+@keyframes tr-p4 { 0%, 73% { opacity: 0; } 77%, 97% { opacity: 1; } 100% { opacity: 0; } }
+
+@keyframes tr-h1 {
+  0%, 3% { transform: translateX(-460px); }
+  13%, 96% { transform: translateX(0px); }
+  100% { transform: translateX(-460px); }
+}
+@keyframes tr-h2 {
+  0%, 13% { transform: translateX(-440px); }
+  23%, 96% { transform: translateX(0px); }
+  100% { transform: translateX(-440px); }
+}
+@keyframes tr-pill {
+  0%, 23% { opacity: 0; transform: translate(0px, 6px); }
+  28%, 45% { opacity: 1; transform: translate(0px, 0px); }
+  48%, 100% { opacity: 0; transform: translate(0px, -4px); }
+}
+@keyframes tr-card {
+  0%, 45% { opacity: 0; transform: translate(0px, 10px); }
+  51%, 95% { opacity: 1; transform: translate(0px, 0px); }
+  100% { opacity: 0; transform: translate(0px, 6px); }
+}
+@keyframes tr-bc { 0%, 76% { opacity: 1; } 80%, 96% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes tr-bd { 0%, 76% { opacity: 0; } 80%, 96% { opacity: 1; } 100% { opacity: 0; } }
+
+@keyframes tr-cur {
+  0%, 3% { transform: translate(116px, 185px); }
+  13% { transform: translate(560px, 185px); }
+  23% { transform: translate(516px, 210px); }
+  32%, 44% { transform: translate(556px, 240px); }
+  52%, 72% { transform: translate(620px, 276px); }
+  78%, 95% { transform: translate(730px, 405px); }
+  100% { transform: translate(116px, 185px); }
+}
+</style>
+<defs>
+  <clipPath id="tr-frame">
+    <rect x="0" y="0" width="880" height="500" rx="18"/>
+  </clipPath>
+  <linearGradient id="tr-bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#0b1222"/>
+    <stop offset="50%" stop-color="#132645"/>
+    <stop offset="100%" stop-color="#09111e"/>
+  </linearGradient>
+  <radialGradient id="tr-glow-a" cx="0.22" cy="0.18" r="0.55">
+    <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.28"/>
+    <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0"/>
+  </radialGradient>
+  <radialGradient id="tr-glow-b" cx="0.82" cy="0.84" r="0.55">
+    <stop offset="0%" stop-color="#6366f1" stop-opacity="0.22"/>
+    <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="tr-shadow" x="-12%" y="-12%" width="124%" height="130%">
+    <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#020617" flood-opacity="0.48"/>
+  </filter>
+  <filter id="tr-soft-shadow" x="-15%" y="-15%" width="130%" height="135%">
+    <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#020617" flood-opacity="0.32"/>
+  </filter>
+</defs>
+<defs>
+  <clipPath id="tr-clip1"><rect x="112" y="168" width="460" height="22" rx="4"/></clipPath>
+  <clipPath id="tr-clip2"><rect x="112" y="194" width="440" height="22" rx="4"/></clipPath>
+</defs>
+<g clip-path="url(#tr-frame)">
+<rect x="0" y="0" width="880" height="500" fill="url(#tr-bg)"/>
+<rect x="0" y="0" width="880" height="500" fill="url(#tr-glow-a)"/>
+<rect x="0" y="0" width="880" height="500" fill="url(#tr-glow-b)"/>
+<!-- Menu Bar -->
+<rect x="0" y="0" width="880" height="28" fill="#09101d" fill-opacity="0.82"/>
+<line x1="0" y1="28" x2="880" y2="28" stroke="#ffffff" stroke-opacity="0.1"/>
+<g transform="translate(18,6)">
+  <path d="M 8.2 3.4 C 9.0 2.4 9.5 1.1 9.3 0 C 8.1 0.1 6.7 0.8 5.9 1.8 C 5.1 2.7 4.5 4.0 4.7 5.2 C 6.0 5.3 7.4 4.5 8.2 3.4 Z" fill="#f1f5f9"/>
+  <path d="M 11.4 7.6 C 11.4 5.6 13.0 4.6 13.1 4.5 C 12.1 3.1 10.6 2.9 10.1 2.9 C 8.8 2.7 7.6 3.7 6.9 3.7 C 6.2 3.7 5.2 2.9 4.1 2.9 C 2.7 2.9 1.4 3.7 0.7 5.0 C -0.8 7.6 0.3 11.5 1.8 13.6 C 2.5 14.6 3.3 15.8 4.4 15.7 C 5.5 15.7 5.9 15.0 7.2 15.0 C 8.5 15.0 8.9 15.7 10.0 15.7 C 11.1 15.7 11.9 14.7 12.6 13.7 C 13.4 12.5 13.7 11.3 13.8 11.2 C 13.7 11.2 11.4 10.3 11.4 7.6 Z" fill="#f1f5f9"/>
+</g>
+<text x="44" y="18" fill="#f8fafc" font-size="12" font-weight="700">Safari</text>
+<text x="110.6" y="18" fill="#cbd5e1" font-size="12" font-weight="400">文件</text><text x="152.6" y="18" fill="#cbd5e1" font-size="12" font-weight="400">编辑</text><text x="194.6" y="18" fill="#cbd5e1" font-size="12" font-weight="400">显示</text><text x="236.6" y="18" fill="#cbd5e1" font-size="12" font-weight="400">历史记录</text><text x="302.6" y="18" fill="#cbd5e1" font-size="12" font-weight="400">书签</text>
+<g transform="translate(736,5)">
+  <rect x="0" y="0" width="22" height="18" rx="5" fill="#0284c7" stroke="#38bdf8" stroke-width="1"/>
+  <path d="M 11.0 4.0 L 12.4 7.6 L 16.0 9.0 L 12.4 10.4 L 11.0 14.0 L 9.6 10.4 L 6.0 9.0 L 9.6 7.6 Z" fill="#ffffff"/>
+</g>
+<!-- Wi-Fi & Clock -->
+<g transform="translate(772,8)" stroke="#cbd5e1" stroke-width="1.4" fill="none" stroke-linecap="round">
+  <path d="M 0 5 Q 6 0 12 5"/>
+  <path d="M 2.5 8 Q 6 5 9.5 8"/>
+  <circle cx="6" cy="11" r="1" fill="#cbd5e1" stroke="none"/>
+</g>
+<text x="862" y="18" text-anchor="end" fill="#e2e8f0" font-size="12" font-weight="500">周日 14:28</text>
+
+<!-- Safari Reader Window -->
+<g filter="url(#tr-shadow)">
+  <rect x="64" y="46" width="752" height="390" rx="12" fill="#ffffff"/>
+  <path d="M 76 46 L 804 46 Q 816 46 816 58 L 816 90 L 64 90 L 64 58 Q 64 46 76 46 Z" fill="#f1f5f9"/>
+  <line x1="64" y1="90" x2="816" y2="90" stroke="#e2e8f0"/>
+  <circle cx="84" cy="68" r="6" fill="#ff5f57"/>
+  <circle cx="104" cy="68" r="6" fill="#febc2e"/>
+  <circle cx="124" cy="68" r="6" fill="#28c840"/>
+  <rect x="248" y="55" width="384" height="25" rx="7" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="440" y="72" text-anchor="middle" fill="#475569" font-size="12">developer.apple.com — Power Efficiency Guide</text>
+
+  <!-- Article Body -->
+  <rect x="112" y="106" width="106" height="20" rx="5" fill="#e0f2fe"/>
+  <text x="165" y="120" text-anchor="middle" fill="#0369a1" font-size="11" font-weight="700">DOCUMENTATION</text>
+  <text x="112" y="148" fill="#0f172a" font-size="19" font-weight="700">Minimize Timer Wakeups &amp; Polling</text>
+
+  <!-- Animated selection highlights underneath text -->
+  <g clip-path="url(#tr-clip1)">
+    <rect class="tr-hl1" x="112" y="168" width="460" height="22" rx="4" fill="#3b82f6" fill-opacity="0.24"/>
+  </g>
+  <g clip-path="url(#tr-clip2)">
+    <rect class="tr-hl2" x="112" y="194" width="440" height="22" rx="4" fill="#3b82f6" fill-opacity="0.24"/>
+  </g>
+
+  <text x="116" y="184" fill="#1e293b" font-size="14" font-weight="500">Event-driven observation replaces continuous polling loops,</text>
+  <text x="116" y="210" fill="#1e293b" font-size="14" font-weight="500">allowing macOS to coalesce wakeups and enter idle states.</text>
+  <text x="116" y="242" fill="#64748b" font-size="13.5">Combine NSWorkspace notifications with accessibility hooks instead</text>
+  <text x="116" y="265" fill="#64748b" font-size="13.5">of running high-frequency timers while no window is active.</text>
+
+  <!-- Info banner at bottom left of window -->
+  <rect x="112" y="316" width="286" height="82" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="128" y="340" fill="#0f172a" font-size="12.5" font-weight="700">兼容任意 OpenAI Chat Completions 接口</text>
+  <text x="128" y="362" fill="#475569" font-size="12">&#8226; 支持 OpenAI / DeepSeek / 本地 Ollama 模型</text>
+  <text x="128" y="382" fill="#475569" font-size="12">&#8226; API Key 存入钥匙串，自动防剪贴板记录泄漏</text>
+</g>
+
+<!-- Phase 2: Floating Trigger Capsule (86x34 matching TranslationStyle.triggerSize) -->
+<g class="tr-pill" filter="url(#tr-soft-shadow)">
+  <rect x="514" y="222" width="90" height="34" rx="11" fill="#ffffff" fill-opacity="0.98" stroke="#cbd5e1"/>
+  <path d="M 534.0 232.5 L 535.8 237.2 L 540.5 239.0 L 535.8 240.8 L 534.0 245.5 L 532.2 240.8 L 527.5 239.0 L 532.2 237.2 Z" fill="#0284c7"/>
+  <text x="548" y="244" fill="#0f172a" font-size="13" font-weight="600">翻译</text>
+</g>
+
+<!-- Phase 3-4: 356px Frosted Translation Card (18px radius matching TranslationStyle) -->
+<g class="tr-card" filter="url(#tr-shadow)">
+  <rect x="432" y="226" width="356" height="202" rx="18" fill="#ffffff" fill-opacity="0.97" stroke="#cbd5e1"/>
+  <!-- Header -->
+  <text x="452" y="258" fill="#64748b" font-size="12" font-weight="500">译为</text>
+  <rect x="484" y="240" width="142" height="24" rx="7" fill="#f1f5f9"/>
+  <text x="494" y="256" fill="#0f172a" font-size="12" font-weight="600">自动（中英互译） &#9662;</text>
+  <line x1="452" y1="274" x2="768" y2="274" stroke="#e2e8f0"/>
+
+  <!-- Translated Text -->
+  <text x="452" y="302" fill="#0f172a" font-size="15" font-weight="500">事件驱动监听取代持续轮询循环，</text>
+  <text x="452" y="327" fill="#0f172a" font-size="15" font-weight="500">使 macOS 能够合并唤醒并平稳进</text>
+  <text x="452" y="352" fill="#0f172a" font-size="15" font-weight="500">入空闲省电状态。</text>
+
+  <!-- Footer -->
+  <line x1="452" y1="374" x2="768" y2="374" stroke="#e2e8f0"/>
+  <text x="452" y="403" fill="#64748b" font-size="11.5">原文自动识别</text>
+
+  <g class="tr-btn-copy">
+    <rect x="682" y="386" width="88" height="28" rx="8" fill="#e2e8f0" fill-opacity="0.78"/>
+    <text x="726" y="404" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="600">复制译文</text>
+  </g>
+  <g class="tr-btn-done">
+    <rect x="682" y="386" width="88" height="28" rx="8" fill="#16a34a" fill-opacity="0.16" stroke="#16a34a" stroke-opacity="0.45"/>
+    <text x="726" y="404" text-anchor="middle" fill="#15803d" font-size="12" font-weight="700">&#10003; 已复制</text>
+  </g>
+</g>
+
+<g class="tr-cursor"><path d="M 0 0 L 0 18 L 4.5 14 L 8.2 21 L 10.8 19.7 L 7.2 12.8 L 13 12.8 Z" fill="#0f172a" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/></g>
+
+<g transform="translate(0,456)">
+<rect x="44" y="0" width="189" height="28" rx="14" fill="#0f172a" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.12"/>
+<rect class="tr-s1" x="44" y="0" width="189" height="28" rx="14" fill="#0284c7" fill-opacity="0.92" stroke="#38bdf8" stroke-opacity="0.9"/>
+<text x="138.5" y="18.5" text-anchor="middle" fill="#f1f5f9" font-size="12" font-weight="600">① 鼠标划选文字</text>
+<rect x="245" y="0" width="189" height="28" rx="14" fill="#0f172a" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.12"/>
+<rect class="tr-s2" x="245" y="0" width="189" height="28" rx="14" fill="#0284c7" fill-opacity="0.92" stroke="#38bdf8" stroke-opacity="0.9"/>
+<text x="339.5" y="18.5" text-anchor="middle" fill="#f1f5f9" font-size="12" font-weight="600">② 点击「翻译」胶囊</text>
+<rect x="446" y="0" width="189" height="28" rx="14" fill="#0f172a" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.12"/>
+<rect class="tr-s3" x="446" y="0" width="189" height="28" rx="14" fill="#0284c7" fill-opacity="0.92" stroke="#38bdf8" stroke-opacity="0.9"/>
+<text x="540.5" y="18.5" text-anchor="middle" fill="#f1f5f9" font-size="12" font-weight="600">③ 毛玻璃译文卡片</text>
+<rect x="647" y="0" width="189" height="28" rx="14" fill="#0f172a" fill-opacity="0.78" stroke="#ffffff" stroke-opacity="0.12"/>
+<rect class="tr-s4" x="647" y="0" width="189" height="28" rx="14" fill="#0284c7" fill-opacity="0.92" stroke="#38bdf8" stroke-opacity="0.9"/>
+<text x="741.5" y="18.5" text-anchor="middle" fill="#f1f5f9" font-size="12" font-weight="600">④ 一键复制译文</text>
+</g>
+</g>
+<rect x="0.5" y="0.5" width="879" height="499" rx="17.5" fill="none" stroke="#ffffff" stroke-opacity="0.16"/>
+</svg>
