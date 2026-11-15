@@ -11,16 +11,17 @@ Finder `⌘X` 剪切 · 截图标注与 OCR · 划词即时翻译 · 剪贴板�
 [![Release v0.2.18](https://img.shields.io/badge/Release-v0.2.18-0284c7?style=flat-square)](https://github.com/Kiteflyingee/MacToolbox/releases/tag/v0.2.18)
 [![macOS 14+](https://img.shields.io/badge/macOS-14%2B-1e293b?style=flat-square&logo=apple&logoColor=white)](#3-步快速开始)
 [![Universal](https://img.shields.io/badge/Arch-Apple%20Silicon%20%26%20Intel-0f766e?style=flat-square)](https://github.com/Kiteflyingee/MacToolbox/releases/tag/v0.2.18)
-[![License: MIT](https://img.shields.io/badge/License-MIT-16a34a?style=flat-square)](LICENSE)
+[![Apple Notarized](https://img.shields.io/badge/Apple-Notarized-16a34a?style=flat-square)](docs/分发与公证.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-059669?style=flat-square)](LICENSE)
 [![Swift 6](https://img.shields.io/badge/Swift%206-Native-f97316?style=flat-square)](#从源码构建与开发文档)
 
-**[⬇️ 下载通用安装包 DMG (v0.2.18)](https://github.com/Kiteflyingee/MacToolbox/releases/download/v0.2.18/MacToolbox-0.2.18-universal.dmg)** · **[📦 全部发行版](https://github.com/Kiteflyingee/MacToolbox/releases)** · **[🔐 屏幕录制权限指南](docs/屏幕录制权限.md)** · **[🛡️ 分发与构建说明](docs/分发与公证.md)**
+**[⬇️ 下载通用安装包 DMG (v0.2.18)](https://github.com/Kiteflyingee/MacToolbox/releases/download/v0.2.18/MacToolbox-0.2.18-universal.dmg)** · **[📦 全部发行版](https://github.com/Kiteflyingee/MacToolbox/releases)** · **[🔐 屏幕录制权限指南](docs/屏幕录制权限.md)** · **[🛡️ 分发与公证说明](docs/分发与公证.md)**
 
 </div>
 
 ---
 
-> **项目说明**：MacToolbox 是基于 Swift 6 与 AppKit 开发的原生 macOS 菜单栏工具，采用 **MIT 协议** 开源，提供 Intel 与 Apple Silicon 双架构通用安装包。
+> **项目说明**：MacToolbox 是基于 Swift 6 与 AppKit 开发的原生 macOS 菜单栏工具，采用 **MIT 协议** 开源，提供 Intel 与 Apple Silicon 双架构通用安装包；官方 Release 安装包已完成 **Developer ID 签名与 Apple 公证**。
 
 ## 为什么选择 MacToolbox
 
@@ -28,9 +29,9 @@ Finder `⌘X` 剪切 · 截图标注与 OCR · 划词即时翻译 · 剪贴板�
 | :--- | :--- |
 | 使用 **Swift 6 + AppKit** 原生构建，无 Electron 运行时包袱，Intel + Apple Silicon 双架构通用 DMG 体积仅约 **4 MB**。 | Finder 与辅助功能均由 **事件通知驱动**，闲置时实测 CPU 为 **0.0%**，系统休眠、息屏与锁屏自动挂起采集。 |
 
-| 🔒 本地存储与钥匙串安全 | 📖 MIT 开源可审计 |
+| 🔒 本地存储与钥匙串安全 | ✅ Apple 公证 · MIT 开源 |
 | :--- | :--- |
-| 剪贴板历史保存在本机 SQLite；翻译 API Key 存入 **系统钥匙串（Keychain）**，并自动登记摘要防止敏感密钥进入剪贴板记录。 | 全量源码以 **[MIT License](LICENSE)** 开源，零遥测、无云端账号绑定，支持本地自由审计、自定义修改与一键打包。 |
+| 剪贴板历史保存在本机 SQLite；翻译 API Key 存入 **系统钥匙串（Keychain）**，并自动登记摘要防止敏感密钥进入剪贴板记录。 | 官方安装包采用 Developer ID 硬化运行时签名并通过 **Apple 公证与票据装订**（`Notarized Developer ID`），全量源码以 **[MIT License](LICENSE)** 开源可审计。 |
 
 ---
 
@@ -87,7 +88,7 @@ Finder `⌘X` 剪切 · 截图标注与 OCR · 划词即时翻译 · 剪贴板�
 
 1. **下载并安装**  
    从 [v0.2.18 Release](https://github.com/Kiteflyingee/MacToolbox/releases/tag/v0.2.18) 下载 `MacToolbox-0.2.18-universal.dmg`（支持 **macOS 14 及以上**，兼容 Intel 与 Apple 芯片），双击打开后将 **`MacToolbox.app` 拖入 `Applications`**。  
-   > 开源发行版采用 Ad-hoc 签名：若首次打开提示“无法验证开发者”，请在「应用程序」中右键（或按住 `Control` 点击）`MacToolbox.app` 选择「打开」，或在「系统设置 → 隐私与安全性」底部点击「仍要打开」。若正在运行旧版，请先从菜单栏退出后再替换。
+   > 官方 Release 安装包已完成 Developer ID 签名与 Apple 公证票据装订（`Notarized Developer ID`），首次打开按系统常规确认点击「打开」即可。若正在运行旧版，请先从菜单栏退出后再替换。
 
 2. **按分步引导授权权限**  
    打开后进入「偏好设置 → 权限」或直接触发功能，按指引授予以下系统权限：
@@ -104,7 +105,7 @@ Finder `⌘X` 剪切 · 截图标注与 OCR · 划词即时翻译 · 剪贴板�
   ```sh
   shasum -a 256 -c MacToolbox-0.2.18-universal.dmg.sha256
   ```
-- **架构与签名说明**：通用 DMG 包含 `arm64` 与 `x86_64` 双架构二进制，采用开源项目通用的 Ad-hoc 签名打包（自定义签名与公证流程见 [分发与公证说明](docs/分发与公证.md)）。
+- **架构与签名说明**：通用 DMG 包含 `arm64` 与 `x86_64` 双架构二进制；官方 Release 安装包采用 `Developer ID Application` 签名并通过 Apple 公证与票据装订（`Notarized Developer ID`），直接通过 macOS Gatekeeper 校验。从源码本地自建时亦可使用 `MACTOOLBOX_ADHOC_SIGN=1`（详见 [分发与公证说明](docs/分发与公证.md)）。
 - **隐私边界**：划词、复制或截图 OCR 触发翻译的文本仅发送至你在设置中自行指定的翻译服务端，请留意所选服务商的隐私政策；API Key 仅保存于系统钥匙串，剪贴板历史仅存储在本地。
 
 </details>
@@ -121,7 +122,7 @@ sh tools/test_core.sh
 MACTOOLBOX_ADHOC_SIGN=1 sh tools/build_app.sh
 ```
 
-- 构建与 DMG 打包脚本详见 [分发与公证说明](docs/分发与公证.md)；请勿将任何个人证书私钥、API Key 或本机签名配置提交到仓库。
+- 构建、签名与 Apple 公证流程详见 [分发与公证说明](docs/分发与公证.md)；请勿将任何个人证书私钥、API Key 或本机签名配置提交到仓库。
 - 完整原生测试需在正常登录的 macOS 桌面会话下运行。
 - App Store 沙箱限制与适配说明见 [Mac App Store 上架说明](docs/Mac-App-Store上架说明.md)。
 
@@ -129,7 +130,7 @@ MACTOOLBOX_ADHOC_SIGN=1 sh tools/build_app.sh
 <summary>📝 版本更新记录</summary>
 
 - **v0.2.18（2026-11-15）**
-  - 修复bug
+  - 修复已知问题；官方通用 DMG 已完成 Developer ID 签名与 Apple 公证票据装订。
 
 </details>
 

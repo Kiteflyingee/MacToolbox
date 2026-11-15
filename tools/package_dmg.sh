@@ -37,13 +37,18 @@ else
   codesign --verify --strict "$task_image/contents/MacToolbox.app"
 fi
 ln -s /Applications "$task_image/contents/Applications"
+if [ -n "$task_identity" ]; then
+  open_tip="   · 发行包已完成 Developer ID 签名并通过 Apple 公证，首次打开按系统确认提示点“打开”即可。"
+else
+  open_tip="   · 若首次打开提示“无法验证开发者”，请在“应用程序”中右键（或按住 Control 点击）MacToolbox.app 选择“打开”，或在“系统设置 → 隐私与安全性”底部点击“仍要打开”。"
+fi
 cat > "$task_image/contents/安装说明.txt" <<TEXT
 MacToolbox $version (MIT License)
 
 1. 先退出正在运行的 MacToolbox。
 2. 把 MacToolbox.app 拖到旁边的 Applications 文件夹；更新时选择替换旧版。
 3. 推出此磁盘映像，在“应用程序”中打开 MacToolbox.app。
-   · 若首次打开提示“无法验证开发者”，请在“应用程序”中右键（或按住 Control 点击）MacToolbox.app 选择“打开”，或在“系统设置 → 隐私与安全性”底部点击“仍要打开”。
+$open_tip
 4. 使用顶部菜单栏的叠卡星光图标进入截图、剪贴板记录和偏好设置。
 
 Applications 入口指向系统 /Applications 文件夹。原有偏好、剪贴板历史与 API 配置保留在各用户自己的目录。
